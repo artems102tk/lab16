@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Listener Example</title>
+<style>
+  .link {
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    display: inline-block;
+  }
+</style>
+</head>
+<body>
+
+<a href="https://www.google.com" class="link">Google</a>
+<a href="https://www.wikipedia.org" class="link">Wikipedia</a>
+<a href="https://www.github.com" class="link">GitHub</a>
+
+<script>
+  // Функція для обробки події наведення миші
+  function addHref(event) {
+    var href = event.target.getAttribute('href');
+    event.target.innerText += ' (' + href + ')';
+    // Відв'язуємо цю функцію від події після першого наведення
+    event.target.removeEventListener('mouseover', addHref);
+  }
+
+  // Функція для обробки події зняття миші
+  function removeHref(event) {
+    var href = event.target.getAttribute('href');
+    event.target.innerText = event.target.innerText.replace(' (' + href + ')', '');
+  }
+
+  // Отримуємо всі посилання
+  var links = document.querySelectorAll('.link');
+
+  // Додаємо обробники подій до кожного посилання
+  links.forEach(function(link) {
+    link.addEventListener('mouseover', addHref);
+    link.addEventListener('mouseout', removeHref);
+  });
+</script>
+
+</body>
+</html>
